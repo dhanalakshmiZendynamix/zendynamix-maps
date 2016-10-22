@@ -9,15 +9,16 @@ zendynamixMap.directive("zendynamixMaps", function(leafLetMapService,$timeout) {
         template: "<div class='map' id='{{mapId}}'> </div>",
 
         link: function(scope, element, attrs){
-
-            console.log("**************************************scope.mapId")
-            console.log(scope.mapId)
+            console.log(scope.latitude)
             $timeout(function () {
-                leafLetMapService.initMap(25.248354, 55.352544,scope.mapId);
-            },500)
+                leafLetMapService.initMap(scope.latitude, scope.longitude,scope.mapId ,scope.zoom );
+            },200)
         },
         scope:{
-            mapId: '@'
+            mapId: '@',
+            latitude:'@',
+            longitude:'@',
+            zoom:'@'
         }
     }
 });
