@@ -39,9 +39,21 @@ zendynamixMap.factory('leafLetMapService', function () {
     }
 
 
+    function clearAndInstantiateMap(name,lat, lng,zoomLevel) {
+        if (mymap != undefined)
+        {
+            mymap.remove();
+            initLeafLetMap(lat, lng, name ,zoomLevel)
+        }
+
+
+    }
+
+
     return {
         initMap: initLeafLetMap,
         addCustomMarkers:addCustomMarkers,
-        drawPolygon:drawPolygon
+        drawPolygon:drawPolygon,
+        clearAndInstantiateMap:clearAndInstantiateMap
     }
 })

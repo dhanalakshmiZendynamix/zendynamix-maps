@@ -18,6 +18,7 @@ zendynamixMap.controller('mapController', function ($scope,leafLetMapService) {
 
             leafLetMapService.addCustomMarkers(25.277132 ,55.418959,'directives/js/images/square-xxl.jpg',20,20);
             leafLetMapService.drawPolygon(polyarray1,'red','green',0.3)
+            leafLetMapService.clearAndInstantiateMap("dashBoardMap",25.248354,55.352544,18)
 
         }, 3000);
 
