@@ -13,8 +13,5 @@
   ],
   "license": "MIT",
   "homepage": "index.html",
-  "private": true,
-  "dependencies" : {
-    "my_package_name" : "https://dhanalakshmiR@bitbucket.org/dhanalakshmiR/zendynamixmap.git"
-  }
+  "private": true
 }
