@@ -3,7 +3,7 @@
  */
 
 zendynamixMap.factory('leafLetMapService', function () {
-    var mymap,marker;
+    var mymap,marker,animatedHistoryMarker;
 
 
     function initLeafLetMap(lat, lng, name ,zoomLevel) {
@@ -53,7 +53,9 @@ zendynamixMap.factory('leafLetMapService', function () {
         mymap.setView([lat, lng], zoomLevel)
     }
 
-    function drawPolyLineFromArrayOFLatLanObjects(arrayOfLatLngObjects,color){
+
+
+    function fromPloylineArray(arrayOfLatLngObjects){
         var directionObjArray=[]
         for(var j=0;j<arrayOfLatLngObjects.length;j++){
             var tempArr=new Array();
@@ -62,16 +64,39 @@ zendynamixMap.factory('leafLetMapService', function () {
             directionObjArray.push(tempArr)
 
         }
-        drawPolyline(directionObjArray,color)
+        return directionObjArray;
+    }
+
+    function drawPolyline(arrayOfLatLngObjects,color){
+        var polyLinePoints=  fromPloylineArray(arrayOfLatLngObjects)
+        var polyline = L.polyline(polyLinePoints, {color: color}).addTo(mymap);
+        // zoom the map to the polyline
+        /*mymap.fitBounds(polyline.getBounds());*/
+
+
     }
 
 
+    function startRealTimeMarkerMoving(arrayOfLatLngObjects){
+        var polyLinePoints=  fromPloylineArray(arrayOfLatLngObjects)
 
-    function drawPolyline(polyLinePoints,color){
+        if(animatedHistoryMarker){
+            mymap.removeLayer(animatedHistoryMarker);
+        }
 
-        var polyline = L.polyline(polyLinePoints, {color: color}).addTo(mymap);
-        // zoom the map to the polyline
-        mymap.fitBounds(polyline.getBounds());
+        var line = L.polyline(polyLinePoints)
+        var myIcon = L.icon({
+            iconUrl: 'directives/js/images/square-xxl.jpg',
+            iconSize: [15, 15]
+        });
+
+        animatedHistoryMarker = L.animatedMarker(line.getLatLngs(), {
+            icon: myIcon,
+            interval: 10000//milliseconds
+        });
+        animatedHistoryMarker.start();
+        mymap.addLayer(animatedHistoryMarker);
+
 
     }
 
@@ -83,6 +108,6 @@ zendynamixMap.factory('leafLetMapService', function () {
         clearAndInstantiateMap:clearAndInstantiateMap,
         setCenterLocationOfMap:setCenterLocationOfMap,
         drawPolyline:drawPolyline,
-        drawPolyLineFromArrayOFLatLanObjects:drawPolyLineFromArrayOFLatLanObjects
+        startRealTimeMarkerMoving:startRealTimeMarkerMoving
     }
 })
