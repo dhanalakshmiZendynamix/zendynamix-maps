@@ -1,0 +1,20 @@
+{
+  "name": "zendynamix-maps",
+  "authors": [
+    "dhanalakshmi <dhanalakshmi@zendynamix.com>"
+  ],
+  "description": "map directive using leaflet map",
+  "main": "index.html",
+  "keywords": [
+    "map",
+    "angular",
+    "directive",
+    "leaflet"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "dependencies" : {
+    "my_package_name" : "https://dhanalakshmiR@bitbucket.org/dhanalakshmiR/zendynamixmap.git"
+  }
+}

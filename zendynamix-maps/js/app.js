@@ -13,3 +13,7 @@ zendynamixMap.config(function ($stateProvider, $urlRouterProvider) {
     })
     $urlRouterProvider.otherwise("/");
 });
+
+
+
+
