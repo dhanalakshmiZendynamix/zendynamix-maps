@@ -23,6 +23,8 @@ zendynamixMap.factory('leafLetMapService', function () {
             iconSize: [iconWidth, iconHeight]
         });
         L.marker([lat,lng], {icon: markerIconStyle}).addTo(mymap);
+        /*var marker= L.marker([lat,lng], {icon: markerIconStyle}).addTo(mymap);
+        marker._leaflet_id = markerId;*/
     }
 
 
@@ -99,6 +101,41 @@ zendynamixMap.factory('leafLetMapService', function () {
 
 
     }
+
+
+    function panAndZoomLocation(lat,lng, deviceId){
+        updateMarkers(lat,lng,deviceId,false);
+    }
+    function updateMarkers(lat, lng, markerId,isMoveTo) {
+        if(isMoveTo === null ||isMoveTo === undefined) {
+            isMoveTo =true;
+        }
+
+        for(var k=0;k<markerhasTabel.length;k++){
+            if(markerhasTabel[k].key===markerId){
+                var newLatLng = new L.LatLng(lat,lng);
+                var latlng = L.latLng(lat, lng);
+
+                mymap.setView(latlng);
+                mymap.panTo(latlng, {animate: true, duration: 10.0});
+
+                if(isMoveTo){
+                    markerhasTabel[k].value.moveTo(latlng, 10000)
+                }else{
+                    markerhasTabel[k].value.moveTo(latlng,5);
+                    // markerhasTabel[k].value.setLatLng(latlng).update()
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+
+
 
 
     return {
