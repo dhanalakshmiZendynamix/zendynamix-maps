@@ -16,18 +16,32 @@ zendynamixMap.factory('leafLetMapService', function () {
     }
 
 
-
-    function addCustomMarkers(lat,lng) {
-
+    //add custom marker
+    function addCustomMarkers(lat,lng,iconUrl,iconWidth,iconHeight) {
         var markerIconStyle = L.icon({
-            iconUrl: 'directives/js/images/square-xxl.jpg',
-            iconSize: [20, 20]
+            iconUrl: iconUrl,
+            iconSize: [iconWidth, iconHeight]
         });
         L.marker([lat,lng], {icon: markerIconStyle}).addTo(mymap);
     }
 
+
+    //polygon with fill color and line
+    function drawPolygon(polyArray,borderColor,fillColor,fillOpacity){
+        var polygon = L.polygon(polyArray,{
+            color: borderColor,
+            fillColor: fillColor,
+            fillOpacity:fillOpacity
+        }).addTo(mymap);
+
+
+
+    }
+
+
     return {
         initMap: initLeafLetMap,
-        addCustomMarkers:addCustomMarkers
+        addCustomMarkers:addCustomMarkers,
+        drawPolygon:drawPolygon
     }
 })
