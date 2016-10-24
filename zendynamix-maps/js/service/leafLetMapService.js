@@ -38,7 +38,7 @@ zendynamixMap.factory('leafLetMapService', function () {
 
     }
 
-
+    //clears all the  layers on the map provides brand new map container
     function clearAndInstantiateMap(name,lat, lng,zoomLevel) {
         if (mymap != undefined)
         {
@@ -49,11 +49,40 @@ zendynamixMap.factory('leafLetMapService', function () {
 
     }
 
+    function setCenterLocationOfMap(lat, lng, zoomLevel) {
+        mymap.setView([lat, lng], zoomLevel)
+    }
+
+    function drawPolyLineFromArrayOFLatLanObjects(arrayOfLatLngObjects,color){
+        var directionObjArray=[]
+        for(var j=0;j<arrayOfLatLngObjects.length;j++){
+            var tempArr=new Array();
+            tempArr.push(parseFloat(arrayOfLatLngObjects[j].lat))
+            tempArr.push(parseFloat(arrayOfLatLngObjects[j].lng))
+            directionObjArray.push(tempArr)
+
+        }
+        drawPolyline(directionObjArray,color)
+    }
+
+
+
+    function drawPolyline(polyLinePoints,color){
+
+        var polyline = L.polyline(polyLinePoints, {color: color}).addTo(mymap);
+        // zoom the map to the polyline
+        mymap.fitBounds(polyline.getBounds());
+
+    }
+
 
     return {
         initMap: initLeafLetMap,
         addCustomMarkers:addCustomMarkers,
         drawPolygon:drawPolygon,
-        clearAndInstantiateMap:clearAndInstantiateMap
+        clearAndInstantiateMap:clearAndInstantiateMap,
+        setCenterLocationOfMap:setCenterLocationOfMap,
+        drawPolyline:drawPolyline,
+        drawPolyLineFromArrayOFLatLanObjects:drawPolyLineFromArrayOFLatLanObjects
     }
 })
